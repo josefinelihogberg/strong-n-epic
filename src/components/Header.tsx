@@ -1,7 +1,14 @@
 import React from "react";
 import gym from "../assets/gym.png";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/login");
+  };
+
   return (
     <div>
       <header
@@ -34,7 +41,7 @@ const Header = () => {
             <li>Contact</li>
           </ul>
         </nav>
-        <button>Login</button>
+        <button onClick={handleClick}>Login</button>
       </header>
     </div>
   );
