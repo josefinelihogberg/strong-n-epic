@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddPassComponent.css";
 
-interface Pass {
-  title: string;
-  coach: string;
-  date: string;
-  time: string;
-  description: string;
-}
+import { Pass } from "../types/Pass";
 
 const AddPassComponent = () => {
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/users")
+      .then((res) => res.json())
+      .then((json) => setUsers(json.users))
+      .catch((err) => console.log(err));
+  }, []);
+
   const [pass, setPass] = useState<Pass>({
     title: "",
     coach: "",

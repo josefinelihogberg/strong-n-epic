@@ -1,122 +1,26 @@
-import { time } from "console";
-import { createServer } from "mirage";
+import { createServer } from "miragejs";
 
-export default function MirageServer() {
-  createServer({
-    routes() {
-      this.get("api/customers", () => ({
-        customers: [
-          {
-            id: 1,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 2,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 3,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 4,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 5,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 6,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 7,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 8,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 9,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-          {
-            id: 10,
-            name: "Jane Doe",
-            userID: Math.Floor(Math.Random) * 9000,
-            ContactInfo: "janedoe@mail.com",
-            passDetails: [{ pass: "Calming Yoga" }, { pass: "Group Training" }],
-          },
-        ],
-      }));
-      this.get("api/passes", () => ({
-        passes: [
-          {
-            pass: "Calming Yoga",
-            date: Date,
-            time: time,
-            coach: "Strongy McStrong",
-            description: "Random text about the exercise, location and such.",
-          },
-          {
-            pass: "Group Training",
-            date: Date,
-            time: time,
-            coach: "Strongy McStrong",
-            description: "Random text about the exercise, location and such.",
-          },
-          {
-            pass: "Cardio",
-            date: Date,
-            time: time,
-            coach: "Strongy McStrong",
-            description: "Random text about the exercise, location and such.",
-          },
-          {
-            pass: "Advanced Yoga",
-            date: Date,
-            time: time,
-            coach: "Strongy McStrong",
-            description: "Random text about the exercise, location and such.",
-          },
-          {
-            pass: "Boxing",
-            date: Date,
-            time: time,
-            coach: "Strongy McStrong",
-            description: "Random text about the exercise, location and such.",
-          },
-        ],
-      }));
-    },
-  });
-}
+let users = [
+  { id: 1, username: "Adam", role: "USER", password: "123" },
+  { id: 2, username: "Bob", role: "ADMIN", password: "123" },
+];
+
+createServer({
+  routes() {
+    this.namespace = "api";
+
+    // Responding to a POST request
+    this.post("/users", (schema, request) => {
+      let attrs = JSON.parse(request.requestBody);
+      attrs.id = Math.floor(Math.random() * 100);
+
+      users.push(attrs);
+
+      return { user: attrs };
+    });
+
+    this.get("/users", () => {
+      return users;
+    });
+  },
+});
