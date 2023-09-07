@@ -1,19 +1,26 @@
 import React from "react";
-import gym from "../assets/gym.png";
 import { useNavigate } from "react-router-dom";
+import gym from "../assets/gym.png";
 
-const Header = () => {
+type NavProps = {
+  btnText: String;
+};
+
+const Header = ({ btnText }: NavProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/login");
+    if (btnText === "Login") {
+      navigate("/login");
+    } else {
+      navigate("*");
+    }
   };
-
   return (
     <div>
       <header
         style={{
-          background: "darkgray",
+          background: "lightgray",
           height: "80px",
           display: "flex",
           alignItems: "center",
@@ -34,14 +41,21 @@ const Header = () => {
           }}
         ></input>
         <nav>
-          <ul style={{ display: "flex", listStyle: "none", fontSize: "0.9rem", gap: "1em" }}>
+          <ul
+            style={{
+              display: "flex",
+              listStyle: "none",
+              fontSize: "0.9rem",
+              gap: "1em",
+            }}
+          >
             <li>Home</li>
             <li>Services</li>
             <li>About us</li>
             <li>Contact</li>
           </ul>
         </nav>
-        <button onClick={handleClick}>Login</button>
+        <button onClick={handleClick}>{btnText}</button>
       </header>
     </div>
   );

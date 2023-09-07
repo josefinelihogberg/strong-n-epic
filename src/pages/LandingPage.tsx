@@ -12,7 +12,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <Header />
+      <Header btnText={"Login"} />
       <div
         style={{
           margin: "auto",
