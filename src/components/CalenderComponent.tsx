@@ -3,7 +3,15 @@ import GridCard from "./abstracts/GridCard";
 
 const CalenderComponent = () => {
   return (
-    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-evenly",
+        width: "80%",
+        margin: "0 auto",
+        gap: "5px",
+      }}
+    >
       <GridCard dayText="mon" dayString="monday" />
       <GridCard dayText="tues" dayString="tuesday" />
       <GridCard dayText="wed" dayString="wednesday" />

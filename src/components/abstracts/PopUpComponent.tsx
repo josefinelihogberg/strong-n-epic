@@ -8,11 +8,20 @@ type PopUpProps = {
 
 const PopUpComponent = ({ onOkClick, onCancelClick, insertText }: PopUpProps): JSX.Element => {
   return (
-    <div style={{ width: "700px", height: "300px" }}>
+    <div
+      style={{
+        width: "500px",
+        height: "200px",
+        position: "absolute",
+        zIndex: "100",
+        background: "gray",
+        color: "white",
+      }}
+    >
       <p>{insertText}</p>
       <div>
-        <button onClick={onOkClick()}>Ok</button>
-        <button onClick={onCancelClick()}>Cancel</button>
+        <button onClick={() => onOkClick()}>Ok</button>
+        <button onClick={() => onCancelClick()}>Cancel</button>
       </div>
     </div>
   );
