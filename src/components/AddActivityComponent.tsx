@@ -13,7 +13,7 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
     title: "",
     coach: "",
     day: " ",
-    createddate: "",
+    created: "",
     time: "",
     description: "",
   });
@@ -70,7 +70,7 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
             type="text"
             name="date"
             placeholder="YYYYMMDD"
-            value={activity.createddate}
+            value={activity.created}
             onChange={handleChange}
           />
 

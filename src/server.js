@@ -36,6 +36,7 @@ let activities = [
     id: 3,
     title: "spinning bicyle",
     coach: "Ulf Andersson",
+    day: "Wednesday",
     createddate: "20230907",
     time: "18:00",
     description: "an amazing activity for you who wants to become strong",

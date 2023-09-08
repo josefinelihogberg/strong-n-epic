@@ -42,7 +42,7 @@ const AdminActivityPage = () => {
                 <tr key={activity.id}>
                   <td>{activity.title}</td>
                   <td>{activity.id}</td>
-                  <td>{activity.createddate}</td>
+                  <td>{activity.created}</td>
                   <td>
                     {activity.day}, {activity.time}
                   </td>
