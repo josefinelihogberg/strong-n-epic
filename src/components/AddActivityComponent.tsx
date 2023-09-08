@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import "./AddActivityComponent.css";
-
 import { Activity } from "../types/Activity";
 
 interface AddActivityProps {
@@ -8,7 +6,7 @@ interface AddActivityProps {
 }
 
 const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
-  const [activity, setActivity] = useState<Activity>({
+  const initialActivity: Activity = {
     id: 0,
     title: "",
     coach: "",
@@ -16,13 +14,11 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
     created: "",
     time: "",
     description: "",
-  });
-
+  };
+  const [activity, setActivity] = useState<Activity>(initialActivity);
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     addActivity(activity);
-
     alert("You have successfully added an activity!");
   };
 
@@ -31,32 +27,47 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
     setActivity({ ...activity, [name]: value });
   };
 
+  const handleReset = (): void => {
+    setActivity(initialActivity);
+  };
+
   return (
-    <div className="form-container">
+    <div className="container mt-4">
+      <h3 className="mb-4">Add Activity</h3>
       <form onSubmit={submitHandler}>
-        <h3>Add Activity</h3>
-        <div>
-          <label>Title</label>
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
           <input
             type="text"
+            className="form-control"
             name="title"
-            placeholder="write pass name..."
+            placeholder="Enter activity name..."
             value={activity.title}
             onChange={handleChange}
           />
+        </div>
 
-          <label>Coach</label>
+        <div className="mb-3">
+          <label htmlFor="coach" className="form-label">
+            Coach
+          </label>
           <input
             type="text"
+            className="form-control"
             name="coach"
-            placeholder="write coach name..."
+            placeholder="Enter coach name..."
             value={activity.coach}
             onChange={handleChange}
           />
+        </div>
 
-          <label>Create Date</label>
+        <div className="mb-3">
+          <label className="form-label">Create Date</label>
           <input
             type="text"
+            className="form-control"
             name="created"
             placeholder="YYYYMMDD"
             value={activity.created}
@@ -64,38 +75,49 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
           />
         </div>
 
-        <div>
-          <label>Day</label>
+        <div className="mb-3">
+          <label className="form-label">Day</label>
           <input
             type="text"
+            className="form-control"
             name="day"
             placeholder="Monday..."
             value={activity.day}
             onChange={handleChange}
           />
+        </div>
 
-          <label>Time</label>
+        <div className="mb-3">
+          <label className="form-label">Time</label>
           <input
             type="text"
+            className="form-control"
             name="time"
             placeholder="HH : MM"
             value={activity.time}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label>Description</label>
+
+        <div className="mb-3">
+          <label className="form-label">Description</label>
           <input
-            className="desc-field"
-            name="description"
             type="text"
+            className="form-control desc-field"
+            name="description"
+            placeholder="Enter description..."
             value={activity.description}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <button type="submit">Save changes</button>
-          <button type="reset">Discard changes</button>
+
+        <div className="mb-3">
+          <button type="submit" className="btn btn-primary">
+            Save changes
+          </button>
+          <button type="reset" onClick={handleReset} className="btn btn-secondary ms-2">
+            Discard changes
+          </button>
         </div>
       </form>
     </div>

@@ -18,32 +18,33 @@ const AdminUserPage = () => {
   return (
     <div>
       <Header btnText={"Log Out"} />
-      {users ? (
-        <div>
-          <h3>All Members</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>UserName</th>
-                <th>User ID</th>
-                <th>Booked activities</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.username}</td>
-                  <td>{user.id}</td>
-                  <td>{user.activities}</td>
+      <div className="container mt-4">
+        {users ? (
+          <div>
+            <h3 className="mb-4">All Members</h3>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">UserName</th>
+                  <th scope="col">User ID</th>
+                  <th scope="col">Booked activities</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.username}</td>
+                    <td>{user.id}</td>
+                    <td>{user.activities}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
       <Footer />
     </div>
   );

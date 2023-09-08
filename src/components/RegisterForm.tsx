@@ -24,30 +24,35 @@ const RegisterForm = ({ onRegister }: RegisterFormProps) => {
   };
 
   return (
-    <div className="register-form">
-      <h2>Register</h2>
+    <div className="container">
+      <h2 className="mt-5">Register</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
+        <div className="mb-3">
+          <label className="form-label">Username:</label>
           <input
             type="text"
+            id="username"
+            className="form-control"
             name="username"
             value={username}
             onChange={handleUsernameChange}
             required
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="mb-3">
+          <label className="form-label">Password:</label>
           <input
             type="password"
+            className="form-control"
             name="password"
             value={password}
             onChange={handlePasswordChange}
             required
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className="btn btn-primary">
+          Register
+        </button>
       </form>
     </div>
   );

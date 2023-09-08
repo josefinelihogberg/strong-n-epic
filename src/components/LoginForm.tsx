@@ -24,30 +24,38 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
   };
 
   return (
-    <div className="login-form">
-      <h2>Login</h2>
+    <div className="container">
+      <h2 className="mt-5">Login</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">
+            Username:
+          </label>
           <input
             type="text"
+            className="form-control"
             name="username"
             value={username}
             onChange={handleUsernameChange}
             required
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="mb-3">
+          <label className="form-label">Password:</label>
           <input
             type="password"
+            className="form-control"
             name="password"
             value={password}
             onChange={handlePasswordChange}
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <div className="mb-3">
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+        </div>
       </form>
     </div>
   );
