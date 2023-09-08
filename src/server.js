@@ -8,7 +8,7 @@ let users = [
     username: "Yves",
     role: "USER",
     password: "123",
-    activities: ["spinning bicycle", "yoga"],
+    activities: ["spinning", "bicycle", "yoga"],
   },
 ];
 
@@ -18,7 +18,7 @@ let activities = [
     title: "boxing",
     coach: "Erik Eriksson",
     day: "Monday",
-    createddate: "20230907",
+    created: "20230907",
     time: "18:00",
     description: "an amazing activity for you who wants to become strong",
   },
@@ -28,16 +28,16 @@ let activities = [
     title: "yoga",
     coach: "Emelie Johansson",
     day: "Tuesday",
-    createddate: "20230910",
+    created: "20230910",
     time: "15:00",
     description: "an amazing activity for you who wants to relax",
   },
   {
     id: 3,
-    title: "spinning bicyle",
+    title: "spinning bicycle",
     coach: "Ulf Andersson",
     day: "Wednesday",
-    createddate: "20230907",
+    created: "20230907",
     time: "18:00",
     description: "an amazing activity for you who wants to become strong",
   },
@@ -72,6 +72,14 @@ createServer({
 
     this.get("admin/activities", () => {
       return activities;
+    });
+
+    this.delete("/admin/activity/:id", (schema, request) => {
+      let id = request.params.id;
+
+      activities.filter((activity) => activity.id !== id);
+
+      return { activity: id };
     });
   },
 });

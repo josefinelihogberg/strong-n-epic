@@ -15,8 +15,15 @@ const AdminActivityPage = () => {
 
   console.log(activities);
 
-  const handleClick = () => {
+  const deleteActivity = async (id: number) => {
     alert("Are you sure you want to delete this activity?");
+    try {
+      await fetch(`/api/admin/activity/${id}`, { method: "DELETE" });
+
+      setActivities(activities.filter((act) => act.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -33,7 +40,7 @@ const AdminActivityPage = () => {
                 <th>Created Date</th>
                 <th>Scheduled Time</th>
                 <th>Coach</th>
-                <th>Action</th>
+                <th>Actions</th>
               </tr>
             </thead>
 
@@ -48,7 +55,14 @@ const AdminActivityPage = () => {
                   </td>
                   <td>{activity.coach}</td>
                   <td>
-                    <button>Edit</button> <button onClick={handleClick}>Remove</button>
+                    <button>Edit</button>{" "}
+                    <button
+                      onClick={() => {
+                        deleteActivity(activity.id);
+                      }}
+                    >
+                      Remove
+                    </button>
                   </td>
                 </tr>
               ))}

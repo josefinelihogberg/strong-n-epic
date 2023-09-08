@@ -1,8 +1,8 @@
 export interface Activity {
-  id: string;
+  id: number;
   title: string;
   coach: string;
-  day: string;
+  day: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
   created: string;
   time: string;
   description: string;

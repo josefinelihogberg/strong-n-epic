@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./AddActivityComponent.css";
 
 import { Activity } from "../types/Activity";
@@ -9,10 +9,10 @@ interface AddActivityProps {
 
 const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
   const [activity, setActivity] = useState<Activity>({
-    id: "",
+    id: 0,
     title: "",
     coach: "",
-    day: " ",
+    day: "Monday",
     created: "",
     time: "",
     description: "",
@@ -23,7 +23,7 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
 
     addActivity(activity);
 
-    alert("You have successfully added a pass!");
+    alert("You have successfully added an activity!");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -53,6 +53,15 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
             value={activity.coach}
             onChange={handleChange}
           />
+
+          <label>Create Date</label>
+          <input
+            type="text"
+            name="created"
+            placeholder="YYYYMMDD"
+            value={activity.created}
+            onChange={handleChange}
+          />
         </div>
 
         <div>
@@ -62,15 +71,6 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
             name="day"
             placeholder="Monday..."
             value={activity.day}
-            onChange={handleChange}
-          />
-
-          <label>Create Date</label>
-          <input
-            type="text"
-            name="date"
-            placeholder="YYYYMMDD"
-            value={activity.created}
             onChange={handleChange}
           />
 
