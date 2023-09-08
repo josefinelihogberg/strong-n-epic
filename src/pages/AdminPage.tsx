@@ -1,23 +1,28 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import AddPassComponent from "../components/AddPassComponent";
+import AddActivityComponent from "../components/AddActivityComponent";
+import { Activity } from "../types/Activity";
 
 const AdminPage = () => {
-  const handleAddPass = (
-    title: string,
-    coach: string,
-    date: string,
-    time: string,
-    description: string
-  ) => {
-    // make API post request
+  const handleAddActivity = async (activity: Activity) => {
+    try {
+      const res = await fetch("api/admin/activity", {
+        method: "POST",
+        body: JSON.stringify(activity),
+      });
+
+      const json = await res.json;
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <div>
       <Header btnText={"Log Out"} />
 
-      <AddPassComponent />
+      <AddActivityComponent addActivity={handleAddActivity} />
       <Footer />
     </div>
   );

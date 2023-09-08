@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
 
-  // Handle login logic here
+  // Handle register logic here
   const handleRegister = async (username: string, password: string) => {
-    // Implement your login logic, e.g., make API requests
+    // Implement your register logic, e.g., make API requests
 
     console.log(`Registered with username: ${username} and password: ${password}`);
 

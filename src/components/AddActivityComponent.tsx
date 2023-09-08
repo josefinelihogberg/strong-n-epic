@@ -1,50 +1,46 @@
 import React, { useState, useEffect } from "react";
-import "./AddPassComponent.css";
+import "./AddActivityComponent.css";
 
-import { Pass } from "../types/Pass";
+import { Activity } from "../types/Activity";
 
-const AddPassComponent = () => {
-  const [users, setUsers] = useState(null);
+interface AddActivityProps {
+  addActivity: (activity: Activity) => void;
+}
 
-  useEffect(() => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((json) => setUsers(json.users))
-      .catch((err) => console.log(err));
-  }, []);
-
-  const [pass, setPass] = useState<Pass>({
+const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
+  const [activity, setActivity] = useState<Activity>({
     title: "",
     coach: "",
+    day: " ",
     date: "",
     time: "",
     description: "",
   });
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // should make API request by calling adminService.addPass
-    // addPass (pass);
-    // if succeed
+
+    addActivity(activity);
+
     alert("You have successfully added a pass!");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    setPass({ ...pass, [name]: value });
+    setActivity({ ...activity, [name]: value });
   };
 
   return (
     <div className="form-container">
       <form onSubmit={submitHandler}>
-        <h3>Add Pass</h3>
+        <h3>Add Activity</h3>
         <div>
           <label>Title</label>
           <input
             type="text"
             name="title"
             placeholder="write pass name..."
-            value={pass.title}
+            value={activity.title}
             onChange={handleChange}
           />
 
@@ -53,18 +49,27 @@ const AddPassComponent = () => {
             type="text"
             name="coach"
             placeholder="write coach name..."
-            value={pass.coach}
+            value={activity.coach}
             onChange={handleChange}
           />
         </div>
 
         <div>
+          <label>Day</label>
+          <input
+            type="text"
+            name="day"
+            placeholder="Monday..."
+            value={activity.day}
+            onChange={handleChange}
+          />
+
           <label>Date</label>
           <input
             type="text"
             name="date"
-            placeholder="MM / DD / YYYY"
-            value={pass.date}
+            placeholder="YYYYMMDD"
+            value={activity.date}
             onChange={handleChange}
           />
 
@@ -73,7 +78,7 @@ const AddPassComponent = () => {
             type="text"
             name="time"
             placeholder="HH : MM"
-            value={pass.time}
+            value={activity.time}
             onChange={handleChange}
           />
         </div>
@@ -83,7 +88,7 @@ const AddPassComponent = () => {
             className="desc-field"
             name="description"
             type="text"
-            value={pass.description}
+            value={activity.description}
             onChange={handleChange}
           />
         </div>
@@ -96,4 +101,4 @@ const AddPassComponent = () => {
   );
 };
 
-export default AddPassComponent;
+export default AddActivityComponent;
