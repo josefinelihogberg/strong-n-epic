@@ -9,10 +9,11 @@ interface AddActivityProps {
 
 const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
   const [activity, setActivity] = useState<Activity>({
+    id: "",
     title: "",
     coach: "",
     day: " ",
-    date: "",
+    createddate: "",
     time: "",
     description: "",
   });
@@ -64,12 +65,12 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
             onChange={handleChange}
           />
 
-          <label>Date</label>
+          <label>Create Date</label>
           <input
             type="text"
             name="date"
             placeholder="YYYYMMDD"
-            value={activity.date}
+            value={activity.createddate}
             onChange={handleChange}
           />
 

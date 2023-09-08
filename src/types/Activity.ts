@@ -1,8 +1,9 @@
 export interface Activity {
+  id: string;
   title: string;
   coach: string;
   day: string;
-  date: string;
+  createddate: string;
   time: string;
   description: string;
 }

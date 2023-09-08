@@ -1,9 +1,7 @@
-import { Activity } from "./Activity";
-
 export interface User {
-  id: Number;
+  id: string;
   username: string;
   role: "USER" | "ADMIN";
   password: string;
-  activities?: Activity[];
+  activities?: string[];
 }

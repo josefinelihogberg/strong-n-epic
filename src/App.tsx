@@ -6,6 +6,8 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import UserBookingPage from "./pages/UserBookingPage";
 import RegisterPage from "./pages/RegisterPage";
+import AdminUserPage from "./pages/AdminUserPage";
+import AdminActivityPage from "./pages/AdminActivityPage";
 // react router dom <--
 
 const routes = [
@@ -29,6 +31,8 @@ const routes = [
     path: "/register",
     element: <RegisterPage />,
   },
+  { path: "admin/user", element: <AdminUserPage /> },
+  { path: "admin/activity", element: <AdminActivityPage /> },
 ];
 
 function App() {
