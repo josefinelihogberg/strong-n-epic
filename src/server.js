@@ -39,6 +39,8 @@ createServer({
       if (user) {
         // Return user data with role
         return { user };
+      } else {
+        console.log("Make sure username and password combined are correct!");
       }
     });
   },

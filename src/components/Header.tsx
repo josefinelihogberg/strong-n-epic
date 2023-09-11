@@ -33,30 +33,20 @@ const Header = ({ btnText }: NavProps) => {
         <h1 style={{}}>Strong'n'Epic</h1>
         <input
           placeholder="Search..."
-          style={{
-            borderRadius: "5px",
-            height: "25px",
-            width: "300px",
-            border: "1px solid gray",
-            paddingLeft: "1ems",
-          }}
+          className="rounded-pill px-2 border-1 border-gray"
+          style={{ height: "25px", width: "300px" }}
         ></input>
         <nav>
-          <ul
-            style={{
-              display: "flex",
-              listStyle: "none",
-              fontSize: "0.9rem",
-              gap: "1em",
-            }}
-          >
+          <ul className="list-unstyled d-flex gap-3">
             <li>Home</li>
             <li>Services</li>
             <li>About us</li>
             <li>Contact</li>
           </ul>
         </nav>
-        <button onClick={handleClick}>{btnText}</button>
+        <button className="btn btn-primary" onClick={handleClick}>
+          {btnText}
+        </button>
       </header>
     </div>
   );

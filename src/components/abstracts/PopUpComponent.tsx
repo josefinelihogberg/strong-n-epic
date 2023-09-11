@@ -1,33 +1,28 @@
 import React from "react";
 
 type PopUpProps = {
-  onOkClick: Function;
-  onCancelClick: Function;
+  onOkClick: () => void;
+  onCancelClick: () => void;
   insertText: string | JSX.Element;
 };
 
-const PopUpComponent = ({ onOkClick, onCancelClick, insertText }: PopUpProps): JSX.Element => {
+const PopUpComponent: React.FC<PopUpProps> = ({ onOkClick, onCancelClick, insertText }) => {
   return (
-    <div
-      style={{
-        width: "500px",
-        height: "250px",
-        position: "absolute",
-        zIndex: "100",
-        background: "gray",
-        color: "white",
-        top: "22%",
-        left: "25%",
-        borderRadius: "7px",
-        boxShadow: "2px 2px 1px gray",
-        padding: "1em 2em 1em 2em",
-        textAlign: "center",
-      }}
-    >
-      <div>{insertText}</div>
-      <div style={{ position: "absolute", top: "70%", left: "33%" }}>
-        <button onClick={() => onCancelClick()}>Cancel</button>
-        <button onClick={() => onOkClick()}>Confirm</button>
+    <div className="modal" style={{ display: "block" }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-body">
+            <p>{insertText}</p>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={() => onCancelClick()}>
+              Cancel
+            </button>
+            <button type="button" className="btn btn-primary" onClick={() => onOkClick()}>
+              Confirm
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
