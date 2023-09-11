@@ -1,23 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
 // Define the interface for the login form props
 interface LoginFormProps {
   onLogin: (username: string, password: string) => void;
 }
 
-const LoginForm = ({ onLogin }: LoginFormProps) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+interface FormState {
+  username: string;
+  password: string;
+}
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
+  const [formState, setFormState] = useState<FormState>({
+    username: "",
+    password: "",
+  });
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
+  const { username, password } = formState;
+
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      username: e.target.value,
+    }));
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      password: e.target.value,
+    }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Call the onLogin callback with the entered username and password
     onLogin(username, password);
@@ -38,6 +52,7 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
             value={username}
             onChange={handleUsernameChange}
             required
+            autoFocus
           />
         </div>
         <div className="mb-3">
