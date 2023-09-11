@@ -12,8 +12,9 @@ const Header = ({ btnText }: NavProps) => {
   const handleClick = () => {
     if (btnText === "Login") {
       navigate("/login");
-    } else {
+    } else if (btnText === "Log Out") {
       navigate("*");
+      localStorage.removeItem("username");
     }
   };
   return (

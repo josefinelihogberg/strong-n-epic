@@ -7,12 +7,10 @@ import { Activity } from "../types/Activity";
 const AdminPage = () => {
   const handleAddActivity = async (activity: Activity) => {
     try {
-      const res = await fetch("api/admin/activity", {
+      const res = await fetch("api/admin/activities", {
         method: "POST",
         body: JSON.stringify(activity),
       });
-
-      const json = await res.json;
     } catch (err) {
       console.log(err);
     }

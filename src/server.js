@@ -31,6 +31,16 @@ createServer({
       let id = request.params.id;
       return schema.activities.find(id).destroy();
     });
+
+    this.post("/auth/login", (schema, request) => {
+      const { username, password } = JSON.parse(request.requestBody);
+      const user = schema.users.findBy({ username, password });
+
+      if (user) {
+        // Return user data with role
+        return { user };
+      }
+    });
   },
 
   seeds(server) {

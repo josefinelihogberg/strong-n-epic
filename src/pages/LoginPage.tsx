@@ -8,12 +8,41 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   // Handle login logic here
-  const handleLogin = (username: string, password: string) => {
+  const handleLogin = async (username: string, password: string) => {
     // Implement your login logic, e.g., make API requests
-    console.log(`Logged in with username: ${username} and password: ${password}`);
-    if (username === "Adam") navigate("/userbooking");
+    try {
+      // Make a POST request to the authentication endpoint
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (username === "Bob") navigate("/admin");
+      if (response.status === 201) {
+        const data = await response.json();
+
+        const user = data.user;
+
+        const role = user.role;
+        const username = user.username;
+        // Store username in localStorage
+        localStorage.setItem("username", username);
+
+        // Navigate based on the user's role
+        if (role === "ADMIN") {
+          navigate("/admin");
+        } else if (role === "USER") {
+          navigate("/userbooking");
+        }
+      } else {
+        // Handle login error, e.g., display an error message
+        console.log("Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (

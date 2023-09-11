@@ -6,7 +6,7 @@ import CalenderComponent from "../components/CalenderComponent";
 const UserBookingPage = () => {
   return (
     <div>
-      <Header btnText={"Logout"} />
+      <Header btnText={"Log Out"} />
       <h1>UserBooking Page</h1>
       <CalenderComponent />
       <Footer />
