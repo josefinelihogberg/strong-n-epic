@@ -35,7 +35,7 @@ const AdminUserPage = () => {
                   <tr key={user.id}>
                     <td>{user.username}</td>
                     <td>{user.id}</td>
-                    <td>{user.activities}</td>
+                    <td>{user.activities?.toString()}</td>
                   </tr>
                 ))}
               </tbody>

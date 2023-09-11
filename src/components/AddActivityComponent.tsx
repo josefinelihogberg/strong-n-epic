@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Activity } from "../types/Activity";
 
 interface AddActivityProps {
   addActivity: (activity: Activity) => void;
 }
 
-const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
+const AddActivityComponent: React.FC<AddActivityProps> = ({ addActivity }) => {
   const initialActivity: Activity = {
     id: 0,
     title: "",
@@ -16,13 +16,14 @@ const AddActivityComponent = ({ addActivity }: AddActivityProps) => {
     description: "",
   };
   const [activity, setActivity] = useState<Activity>(initialActivity);
-  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addActivity(activity);
     alert("You have successfully added an activity!");
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setActivity({ ...activity, [name]: value });
   };

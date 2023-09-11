@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Activity } from "../types/Activity";
 
-const AdminActivityPage = () => {
+const AdminActivityPage: FC = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const AdminActivityPage = () => {
   const deleteActivity = async (id: number) => {
     alert("Are you sure you want to delete this activity?");
     try {
-      await fetch(`/api/admin/activity/${id}`, { method: "DELETE" });
+      await fetch(`/api/admin/activities/${id}`, { method: "DELETE" });
 
       setActivities(activities.filter((act) => act.id !== id));
     } catch (err) {
@@ -32,7 +32,7 @@ const AdminActivityPage = () => {
           <div>
             <h3>All activities</h3>
             <table className="table">
-              <thead className="thead-dark">
+              <thead>
                 <tr>
                   <th>Activity Name</th>
                   <th>Activity ID</th>
@@ -53,7 +53,7 @@ const AdminActivityPage = () => {
                     </td>
                     <td>{activity.coach}</td>
                     <td>
-                      <button className="btn btn-primary mr-5">Edit</button>
+                      <button className="btn btn-primary">Edit</button>
                       <button
                         className="btn btn-danger"
                         onClick={() => {

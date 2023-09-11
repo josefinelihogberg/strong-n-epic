@@ -47,7 +47,6 @@ createServer({
   routes() {
     this.namespace = "api";
 
-    // Responding to a POST request
     this.post("/users", (schema, request) => {
       let attrs = JSON.parse(request.requestBody);
       attrs.id = Math.floor(Math.random() * 100);
@@ -74,10 +73,15 @@ createServer({
       return activities;
     });
 
-    this.delete("/admin/activity/:id", (schema, request) => {
+    this.delete("/admin/activities/:id", (schema, request) => {
       let id = request.params.id;
+      let activity = schema.activities.find(id);
 
-      activities.filter((activity) => activity.id !== id);
+      if (!activity) {
+        return new Response(404, {}, { message: "Activity not found" });
+      }
+
+      activity.destroy();
 
       return { activity: id };
     });
