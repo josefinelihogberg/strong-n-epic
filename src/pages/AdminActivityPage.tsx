@@ -67,7 +67,7 @@ const AdminActivityPage: FC = () => {
                     </td>
                     <td>{activity.coach}</td>
                     <td>
-                      <button className="btn btn-primary">Edit</button>
+                      <button className="btn btn-primary me-4">Edit</button>
                       <button className="btn btn-danger" onClick={() => openPopUp(activity.id)}>
                         Remove
                       </button>
