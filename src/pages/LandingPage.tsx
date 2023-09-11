@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const LandingPage: React.FC = () => {
+const LandingPage = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
