@@ -8,7 +8,7 @@ const AdminUserPage = () => {
 
   useEffect(() => {
     fetch("/api/admin/users")
-      .then((res) => res.json())
+      .then((res) => res.json() as Promise<User[]>)
       .then((json) => setUsers(json))
       .catch((err) => console.log(err));
   }, []);

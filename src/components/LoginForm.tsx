@@ -33,7 +33,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Call the onLogin callback with the entered username and password
     onLogin(username, password);
   };
 

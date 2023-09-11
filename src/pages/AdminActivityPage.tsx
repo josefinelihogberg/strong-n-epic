@@ -8,7 +8,7 @@ const AdminActivityPage: FC = () => {
 
   useEffect(() => {
     fetch("/api/admin/activities")
-      .then((res) => res.json())
+      .then((res) => res.json() as Promise<Activity[]>)
       .then((json) => setActivities(json))
       .catch((err) => console.log(err));
   }, []);

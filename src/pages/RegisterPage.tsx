@@ -19,7 +19,7 @@ const RegisterPage: React.FC = () => {
         body: JSON.stringify({ username, password, role: "USER" }),
       });
 
-      const json = await res.json;
+      const json = await res.json();
     } catch (err) {
       console.log(err);
     }
