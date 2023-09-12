@@ -1,5 +1,4 @@
 import Card from "./CardComponent";
-// import exportSessions from "./db";
 import { useEffect, useState } from "react";
 import { Activity } from "../types/Activity";
 
@@ -27,7 +26,14 @@ const GridCard = ({ dayText, dayString }: DayProps) => {
         {sessions?.map(({ day, title, description, coach, time, id }) =>
           day === dayString ? (
             <div key={id}>
-              <Card title={title} time={time} description={description} coach={coach} day={day} />
+              <Card
+                activityId={id}
+                title={title}
+                time={time}
+                description={description}
+                coach={coach}
+                day={day}
+              />
             </div>
           ) : null
         )}

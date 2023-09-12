@@ -1,8 +1,11 @@
-import { createServer, Model } from "miragejs";
+import { createServer, Model, hasMany } from "miragejs";
 
 createServer({
   models: {
-    user: Model,
+    user: Model.extend({
+      activities: hasMany("activity"),
+    }),
+
     activity: Model,
   },
 
@@ -27,6 +30,35 @@ createServer({
       return schema.activities.create(attrs);
     });
 
+    this.post("/user/:id/booking", (schema, request) => {
+      const userId = request.params.id;
+      const activityId = JSON.parse(request.requestBody).activityId; // need to change
+
+      const user = schema.users.find(userId);
+      const activity = schema.activities.find(activityId);
+
+      if (user && activity) {
+        // Add the booked activity to the user's bookings
+        user.update({ activities: [...user.activities.models, activity] });
+
+        return { user };
+      } else {
+        return new Response(400, {}, { error: "User or activity not found" });
+      }
+    });
+
+    this.get("/user/:id/booking", (schema, request) => {
+      const userId = request.params.id;
+      const user = schema.users.find(userId);
+
+      if (!user) {
+        return new Response(404, {}, { error: "User not found" });
+      }
+
+      const userBookings = user.activities;
+      return { userBookings };
+    });
+
     this.delete("/admin/activities/:id", (schema, request) => {
       let id = request.params.id;
       return schema.activities.find(id).destroy();
@@ -37,7 +69,6 @@ createServer({
       const user = schema.users.findBy({ username, password });
 
       if (user) {
-        // Return user data with role
         return { user };
       } else {
         return new Response(
@@ -50,48 +81,144 @@ createServer({
   },
 
   seeds(server) {
-    server.create("user", { id: 1, username: "Bob", role: "ADMIN", password: "123" });
+    server.create("user", {
+      id: 1,
+      username: "Bob",
+      role: "ADMIN",
+      password: "123",
+      activities: [],
+    });
     server.create("user", {
       id: 2,
       username: "Adam",
       role: "USER",
       password: "123",
-      activities: ["boxing", "yoga"],
+      activities: [],
     });
     server.create("user", {
       id: 3,
       username: "Yves",
       role: "USER",
       password: "123",
-      activities: ["spinning", "bicycle", "yoga"],
+      activities: [],
     });
 
     server.create("activity", {
       id: 1,
-      title: "boxing",
+      title: "Boxing",
       coach: "Erik Eriksson",
       day: "Monday",
-      created: "20230907",
-      time: "18:00",
+      date: "20230907",
+      time: "07:00",
       description: "an amazing activity for you who wants to become strong",
     });
     server.create("activity", {
       id: 2,
-      title: "yoga",
+      title: "Yoga",
       coach: "Emelie Johansson",
       day: "Tuesday",
-      created: "20230910",
+      date: "20230910",
       time: "15:00",
       description: "an amazing activity for you who wants to relax",
     });
     server.create("activity", {
       id: 3,
-      title: "spinning bicycle",
+      title: "Spinning",
       coach: "Ulf Andersson",
       day: "Wednesday",
-      created: "20230907",
+      date: "20230907",
       time: "18:00",
       description: "an amazing activity for you who wants to become strong",
+    });
+    server.create("activity", {
+      id: 4,
+      title: "Calming Yoga",
+      coach: "Strongy McStrong",
+      day: "Monday",
+      date: "20230819",
+      time: "09:30",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 5,
+      title: "Cardio",
+      day: "Sunday",
+      date: "20230819",
+      time: "14:00",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 6,
+      title: "Cardio 2",
+      day: "Thursday",
+      date: "20230819",
+      time: "13:30",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 7,
+      title: "Karma Yoga",
+      day: "Monday",
+      date: "20230819",
+      time: "11:00",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 8,
+      title: "Group training",
+      day: "Wednesday",
+      date: "20230819",
+      time: "17:15",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 9,
+      title: "Jogging",
+      day: "Saturday",
+      date: "20230819",
+      time: "17:15",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 10,
+      title: "Yoga",
+      day: "Saturday",
+      date: "20230819",
+      time: "18:15",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 11,
+      title: "Swimming",
+      day: "Saturday",
+      date: "20230819",
+      time: "19:00",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 12,
+      title: "Boxing 2",
+      day: "Friday",
+      date: "20230819",
+      time: "17:15",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
+    });
+    server.create("activity", {
+      id: 13,
+      title: "Boxing 3",
+      day: "Tuesday",
+      date: "20230819",
+      time: "17:15",
+      coach: "Strongy McStrong",
+      description: "Random text about the exercise, location and such.",
     });
   },
 });
