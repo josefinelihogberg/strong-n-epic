@@ -29,6 +29,7 @@ const LoginPage: React.FC = () => {
         const username = user.username;
         // Store username in localStorage
         localStorage.setItem("username", username);
+        localStorage.setItem("role", role);
 
         // Navigate based on the user's role
         if (role === "ADMIN") {

@@ -40,7 +40,11 @@ createServer({
         // Return user data with role
         return { user };
       } else {
-        console.log("Make sure username and password combined are correct!");
+        return new Response(
+          400,
+          { some: "reader" },
+          { error: ["username and password combined not exist!"] }
+        );
       }
     });
   },

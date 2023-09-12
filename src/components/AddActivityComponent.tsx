@@ -20,7 +20,6 @@ const AddActivityComponent: React.FC<AddActivityProps> = ({ addActivity }) => {
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addActivity(activity);
-    alert("You have successfully added an activity!");
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -34,12 +33,10 @@ const AddActivityComponent: React.FC<AddActivityProps> = ({ addActivity }) => {
 
   return (
     <div className="container mt-4">
-      <h3 className="mb-4">Add Activity</h3>
+      <h3 className="mb-5">Add Activity</h3>
       <form onSubmit={submitHandler}>
         <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            Title
-          </label>
+          <label className="form-label">Title</label>
           <input
             type="text"
             className="form-control"

@@ -19,7 +19,7 @@ const PopUpComponent: React.FC<PopUpProps> = ({ onOkClick, onCancelClick, insert
               Cancel
             </button>
             <button type="button" className="btn btn-primary" onClick={() => onOkClick()}>
-              Confirm
+              OK
             </button>
           </div>
         </div>

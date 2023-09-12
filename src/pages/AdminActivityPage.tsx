@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import PopUpComponent from "../components/abstracts/PopUpComponent";
 import { Activity } from "../types/Activity";
 
-const AdminActivityPage: FC = () => {
+const AdminActivityPage: React.FC = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [showPopUp, setShowPopUp] = useState(false); // State for POP UP visibility
   const [activityToDelete, setActivityToDelete] = useState<number | null>(null); // State to store the ID of the activity to delete
