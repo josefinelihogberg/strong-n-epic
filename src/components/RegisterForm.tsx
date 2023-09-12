@@ -30,12 +30,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
           <label className="form-label">Username:</label>
           <input
             type="text"
-            id="username"
             className="form-control"
             name="username"
             value={username}
             onChange={handleUsernameChange}
             required
+            autoFocus
           />
         </div>
         <div className="mb-3">
