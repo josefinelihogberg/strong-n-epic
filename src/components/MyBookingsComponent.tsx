@@ -21,8 +21,6 @@ const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
       .catch((err) => console.error(err));
   }, [userId]);
 
-  console.log(activities);
-
   const openPopUp = (id: number) => {
     setActivityIdToDelete(id);
     setShowPopUp(true);
@@ -46,15 +44,22 @@ const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
   };
 
   return (
-    <div>
-      <h2>My Bookings</h2>
+    <div className="container mt-5">
+      <h2 className="mb-4">My Bookings</h2>
       {activities.length === 0 ? (
         <p>No bookings yet.</p>
       ) : (
-        <ul>
+        <ul className="list-group">
           {activities.map((activity) => (
-            <li key={activity.id}>
-              {activity.title}, {activity.day} {activity.time}, Coach: {activity.coach}
+            <li
+              key={activity.id}
+              className="list-group-item d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <strong>{activity.title}</strong>
+                <br />
+                {activity.day} {activity.time}, Coach: {activity.coach}
+              </div>
               <button onClick={() => openPopUp(activity.id)} className="btn btn-danger">
                 Cancel
               </button>

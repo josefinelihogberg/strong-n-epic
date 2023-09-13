@@ -55,7 +55,6 @@ const Footer = () => {
             <h4>SITEMAP</h4>
             <li>About us</li>
             <li>Services</li>
-            <li>Blog</li>
             <li>Contact us</li>
           </ul>
         </div>
@@ -87,7 +86,7 @@ const Footer = () => {
           >
             <h4>HELP</h4>
             <li>Getting started</li>
-            <li>Network status</li>
+
             <li>FAQs</li>
             <li>Referral program</li>
           </ul>

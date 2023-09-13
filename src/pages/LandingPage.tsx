@@ -15,12 +15,12 @@ const LandingPage = () => {
       <Header btnText={"Login"} />
       <div
         style={{
-          margin: "auto",
+          margin: "10em auto",
           width: "50%",
           textAlign: "center",
         }}
       >
-        <h1>Welcome to Strong n' Epics</h1>
+        <h1 className="display-4">Welcome to Strong n' Epics</h1>
         <p>Join our gym chain and get fit!</p>
         <button className="btn btn-primary" onClick={handleClick}>
           To membership

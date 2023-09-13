@@ -11,17 +11,9 @@ type CardProps = {
   day: string;
 };
 
-type BookingProps = {
-  activityId: number;
-  title: string;
-  time: string;
-  day: string;
-};
-
 const Card = ({ activityId, title, time, description, coach, day }: CardProps) => {
   const [user, setUser] = useState<User | null>(null);
-  const [activePopup, setActivePopup] = useState("");
-  const [confirmPopup, setConfirmPopup] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -35,22 +27,21 @@ const Card = ({ activityId, title, time, description, coach, day }: CardProps) =
   }, []);
 
   const handleClick: React.MouseEventHandler = (e) => {
-    setActivePopup("SelectClass");
+    setShowPopup(true);
   };
 
   const handleOKClick = async () => {
-    setActivePopup("");
+    setShowPopup(false);
 
     if (user !== null) {
       await bookActivity(activityId);
     }
 
-    setConfirmPopup("");
+    setShowPopup(false);
   };
 
   const handleCancelClick = () => {
-    setActivePopup("");
-    setConfirmPopup("");
+    setShowPopup(false);
   };
 
   const bookActivity = async (activityId: number) => {
@@ -65,7 +56,7 @@ const Card = ({ activityId, title, time, description, coach, day }: CardProps) =
           body: JSON.stringify({ activityId }), // Send the activityId in the request body
         });
 
-        setActivePopup("");
+        setShowPopup(false);
       }
     } catch (err) {
       console.error(err);
@@ -84,34 +75,17 @@ const Card = ({ activityId, title, time, description, coach, day }: CardProps) =
         </div>
       </div>
       <div>
-        {activePopup === "SelectClass" && (
+        {showPopup && (
           <PopUpComponent
             onOkClick={handleOKClick}
             onCancelClick={handleCancelClick}
             insertText={
               <div>
                 <h3>{title}</h3>
-                <p>Starts: {time} - be 10min early.</p>
+                <p>Starts: {time}</p>
+                <p>Day: {day}</p>
                 <p>Coach: {coach}</p>
                 <p>{description}</p>
-              </div>
-            }
-          />
-        )}
-      </div>
-      <div>
-        {confirmPopup === "ConfirmClass" && (
-          <PopUpComponent
-            onOkClick={() => user !== null && bookActivity(activityId)}
-            onCancelClick={handleCancelClick}
-            insertText={
-              <div>
-                <p>You have now booked</p>
-                <h3>{title}</h3>
-                <p>
-                  at {time} on {day}.
-                </p>
-                <h4>Welcome!</h4>
               </div>
             }
           />
