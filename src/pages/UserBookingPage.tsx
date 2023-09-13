@@ -27,7 +27,7 @@ const UserBookingPage = () => {
         <div className="my-3 btn btn-primary me-2" onClick={handleBookingClick}>
           My bookings
         </div>
-        {showBookings && userId && <MyBookingsComponent />}
+        {showBookings && userId && <MyBookingsComponent userId={userId} />}
       </div>
       <CalenderComponent />
       <Footer />

@@ -1,47 +1,45 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { User } from "../types/User";
+import React, { useState, useEffect } from "react";
 import { Activity } from "../types/Activity";
 import PopUpComponent from "../components/abstracts/PopUpComponent";
 
-const MyBookingsComponent: React.FC = () => {
+interface MyBookingsProps {
+  userId: number; // Receive the user's ID as a prop
+}
+
+const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [userId, setUserId] = useState(null);
-
-  const [showPopUp, setShowPopUp] = useState(false); // State for POP UP visibility
-  const [bookingIdToDelete, setBookingIdToDelete] = useState<number | null>(null);
-
-  //Simulate fetching user data from local storage or wherever it's stored
-  useEffect(() => {
-    const userData = localStorage.getItem("userId"); // Adjust this based on your data storage
-    if (userData) {
-      setUserId(JSON.parse(userData));
-    }
-  }, []);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [activityIdToDelete, setActivityIdToDelete] = useState<number | null>(null);
 
   useEffect(() => {
     // Fetch user bookings based on the provided userId
-    fetch(`/api/user/${userId}/booking`)
+    fetch(`/api/user/${userId}/bookings`)
       .then((res) => res.json())
-      .then((json) => setActivities(json.userBookings.models))
+      .then((json) => {
+        setActivities(json.activities);
+      })
       .catch((err) => console.error(err));
-  }, [userId]); // Include userId in the dependency array to re-fetch when it changes
+  }, [userId]);
+
   console.log(activities);
 
   const openPopUp = (id: number) => {
-    setBookingIdToDelete(id);
+    setActivityIdToDelete(id);
     setShowPopUp(true);
   };
 
   const closePopUp = () => {
-    setBookingIdToDelete(null);
+    setActivityIdToDelete(null);
     setShowPopUp(false);
   };
-  const deleteBooking = async (id: number) => {
+
+  const deleteBooking = async (activityIdToDelete: number) => {
     try {
-      await fetch(`/api/user/bookings/${id}`, { method: "DELETE" });
-      setActivities(activities.filter((act) => act.id !== id));
-      setShowPopUp(false); // Close the  pop up after deletion
+      await fetch(`/api/user/${userId}/bookings/${activityIdToDelete}`, { method: "DELETE" });
+      setActivities((prevActivities) =>
+        prevActivities.filter((act) => act.id !== activityIdToDelete)
+      );
+      setShowPopUp(false);
     } catch (err) {
       console.log(err);
     }
@@ -56,8 +54,8 @@ const MyBookingsComponent: React.FC = () => {
         <ul>
           {activities.map((activity) => (
             <li key={activity.id}>
-              {activity.title} {activity.day} {activity.time} coach: {activity.coach}{" "}
-              <button className="btn btn-danger" onClick={() => openPopUp(activity.id)}>
+              {activity.title}, {activity.day} {activity.time}, Coach: {activity.coach}
+              <button onClick={() => openPopUp(activity.id)} className="btn btn-danger">
                 Cancel
               </button>
             </li>
@@ -68,7 +66,7 @@ const MyBookingsComponent: React.FC = () => {
       {showPopUp && (
         <PopUpComponent
           insertText="Are you sure you want to cancel this booking?"
-          onOkClick={() => deleteBooking(bookingIdToDelete as number)}
+          onOkClick={() => deleteBooking(activityIdToDelete as number)}
           onCancelClick={closePopUp}
         />
       )}

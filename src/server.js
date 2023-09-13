@@ -5,7 +5,6 @@ createServer({
     user: Model.extend({
       activities: hasMany("activity"),
     }),
-
     activity: Model,
   },
 
@@ -20,6 +19,20 @@ createServer({
       return schema.activities.all();
     });
 
+    this.get("/user/:id", (schema, request) => {
+      const userId = request.params.id;
+      const user = schema.users.find(userId);
+
+      return { user };
+    });
+
+    this.get("/activities/:id", (schema, request) => {
+      const activityId = request.params.id;
+      const activity = schema.activities.find(activityId);
+
+      return { activity };
+    });
+
     this.post("/users", (schema, request) => {
       let attrs = JSON.parse(request.requestBody);
       return schema.users.create(attrs);
@@ -30,38 +43,36 @@ createServer({
       return schema.activities.create(attrs);
     });
 
-    this.post("/user/:id/booking", (schema, request) => {
+    this.post("/user/:id/bookings", (schema, request) => {
       const userId = request.params.id;
-      const activityId = JSON.parse(request.requestBody).activityId; // need to change
+      const { activityId } = JSON.parse(request.requestBody);
 
       const user = schema.users.find(userId);
       const activity = schema.activities.find(activityId);
 
-      if (user && activity) {
-        // Add the booked activity to the user's bookings
-        user.update({ activities: [...user.activities.models, activity] });
+      user.update({ activities: [...user.activities.models, activity] });
 
-        return { user };
-      } else {
-        return new Response(400, {}, { error: "User or activity not found" });
-      }
+      return { user };
     });
 
-    this.delete("/user/bookings/:id", (schema, request) => {
-      const activityId = request.params.id;
-      return schema.users.activities.find(activityId).destroy();
+    this.delete("/user/:userId/bookings/:activityId", (schema, request) => {
+      const userId = request.params.userId;
+      const activityId = request.params.activityId;
+
+      const user = schema.users.find(userId);
+
+      const activityIndex = user.activities.findIndex((activity) => activity.id === activityId);
+
+      user.activities.splice(activityIndex, 1);
+
+      return new Response(204); // deleted success code
     });
 
-    this.get("/user/:id/booking", (schema, request) => {
+    this.get("/user/:id/bookings", (schema, request) => {
       const userId = request.params.id;
       const user = schema.users.find(userId);
 
-      if (!user) {
-        return new Response(404, {}, { error: "User not found" });
-      }
-
-      const userBookings = user.activities;
-      return { userBookings };
+      return user.activities;
     });
 
     this.delete("/admin/activities/:id", (schema, request) => {
@@ -113,7 +124,7 @@ createServer({
       title: "Boxing",
       coach: "Erik Eriksson",
       day: "Monday",
-      date: "20230907",
+      created: "2023-09-07",
       time: "07:00",
       description: "an amazing activity for you who wants to become strong",
     });
@@ -122,7 +133,7 @@ createServer({
       title: "Yoga",
       coach: "Emelie Johansson",
       day: "Tuesday",
-      date: "20230910",
+      created: "2023-09-10",
       time: "15:00",
       description: "an amazing activity for you who wants to relax",
     });
@@ -131,7 +142,7 @@ createServer({
       title: "Spinning",
       coach: "Ulf Andersson",
       day: "Wednesday",
-      date: "20230907",
+      created: "2023-09-07",
       time: "18:00",
       description: "an amazing activity for you who wants to become strong",
     });
@@ -140,7 +151,7 @@ createServer({
       title: "Calming Yoga",
       coach: "Strongy McStrong",
       day: "Monday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "09:30",
       description: "Random text about the exercise, location and such.",
     });
@@ -148,7 +159,7 @@ createServer({
       id: 5,
       title: "Cardio",
       day: "Sunday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "14:00",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -157,7 +168,7 @@ createServer({
       id: 6,
       title: "Cardio 2",
       day: "Thursday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "13:30",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -166,7 +177,7 @@ createServer({
       id: 7,
       title: "Karma Yoga",
       day: "Monday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "11:00",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -175,7 +186,7 @@ createServer({
       id: 8,
       title: "Group training",
       day: "Wednesday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "17:15",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -184,7 +195,7 @@ createServer({
       id: 9,
       title: "Jogging",
       day: "Saturday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "17:15",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -193,7 +204,7 @@ createServer({
       id: 10,
       title: "Yoga",
       day: "Saturday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "18:15",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -202,7 +213,7 @@ createServer({
       id: 11,
       title: "Swimming",
       day: "Saturday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "19:00",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -211,7 +222,7 @@ createServer({
       id: 12,
       title: "Boxing 2",
       day: "Friday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "17:15",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
@@ -220,7 +231,7 @@ createServer({
       id: 13,
       title: "Boxing 3",
       day: "Tuesday",
-      date: "20230819",
+      created: "2023-08-19",
       time: "17:15",
       coach: "Strongy McStrong",
       description: "Random text about the exercise, location and such.",
