@@ -33,7 +33,12 @@ const AdminUserPage = () => {
                   <tr key={user.id}>
                     <td>{user.username}</td>
                     <td>{user.id}</td>
-                    <td>{user.activities?.toString()}</td>
+                    <td>
+                      {" "}
+                      {user.activities?.map((activity) => (
+                        <div key={activity.id}>{activity.title}</div>
+                      ))}
+                    </td>
                   </tr>
                 ))}
               </tbody>

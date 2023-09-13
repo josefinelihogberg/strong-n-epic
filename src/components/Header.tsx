@@ -6,7 +6,7 @@ type NavProps = {
   btnText: String;
 };
 
-const Header = ({ btnText }: NavProps) => {
+const Header: React.FC<NavProps> = ({ btnText }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {

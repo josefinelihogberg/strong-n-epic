@@ -11,9 +11,9 @@ type CardProps = {
   day: string;
 };
 
-const Card = ({ activityId, title, time, description, coach, day }: CardProps) => {
+const Card: React.FC<CardProps> = ({ activityId, title, time, description, coach, day }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");

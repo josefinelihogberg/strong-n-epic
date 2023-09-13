@@ -33,10 +33,7 @@ const UserBookingPage = () => {
       <Header btnText={"Log Out"} />
       <div className="container mt-4">
         <h4 className="mb-4">Welcome {guestName}&#x1F60A;</h4>
-        <button
-          className={`btn btn-primary ${showBookings ? "me-2" : ""}`}
-          onClick={handleBookingClick}
-        >
+        <button className="btn btn-primary" onClick={handleBookingClick}>
           {showBookings ? "Hide My Bookings" : "Show My Bookings"}
         </button>
         {showBookings && userId && <MyBookingsComponent userId={userId} />}

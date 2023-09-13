@@ -4,7 +4,7 @@ import twitter from "../assets/twitter.png";
 import instagram from "../assets/instagram.png";
 import footerImage from "../assets/footer-img.jpg";
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <div>
       <footer

@@ -8,7 +8,7 @@ interface MyBookingsProps {
 
 const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [activityIdToDelete, setActivityIdToDelete] = useState<number | null>(null);
 
   useEffect(() => {

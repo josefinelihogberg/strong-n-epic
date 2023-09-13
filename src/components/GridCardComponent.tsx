@@ -7,7 +7,7 @@ type DayProps = {
   dayString: string;
 };
 
-const GridCard = ({ dayText, dayString }: DayProps) => {
+const GridCard: React.FC<DayProps> = ({ dayText, dayString }) => {
   const [sessions, setSessions] = useState<Activity[]>([]);
 
   useEffect(() => {

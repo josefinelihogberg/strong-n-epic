@@ -1,7 +1,7 @@
 import React from "react";
 import GridCard from "./GridCardComponent";
 
-const CalenderComponent = () => {
+const CalenderComponent: React.FC = () => {
   return (
     <div
       style={{
