@@ -2,34 +2,47 @@ import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CalenderComponent from "../components/CalenderComponent";
-import { useState, useEffect } from "react";
 import MyBookingsComponent from "../components/MyBookingsComponent";
+import { useState, useEffect } from "react";
 
 const UserBookingPage = () => {
   const [showBookings, setShowBookings] = useState(false);
-  const [userId, setUserId] = useState(null); // Store user information here
+  const [userId, setUserId] = useState(null);
+  const [guestName, setGuestName] = useState("");
 
-  //Simulate fetching user data from local storage or wherever it's stored
   useEffect(() => {
-    const userData = localStorage.getItem("userId"); // Adjust this based on your data storage
+    // Simulate fetching user data from local storage or wherever it's stored
+    const userData = localStorage.getItem("userId");
+    const guestData = localStorage.getItem("username");
+
     if (userData) {
       setUserId(JSON.parse(userData));
     }
+
+    if (guestData) {
+      setGuestName(guestData);
+    }
   }, []);
 
-  const handleBookingClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    setShowBookings(!showBookings); // Toggle the showBookings state
+  const handleBookingClick = () => {
+    setShowBookings(!showBookings);
   };
+
   return (
     <div>
       <Header btnText={"Log Out"} />
-      <div className="container">
-        <div className="my-3 btn btn-primary me-2" onClick={handleBookingClick}>
-          My bookings
-        </div>
+      <div className="container mt-4">
+        <h4 className="mb-4">Welcome {guestName}&#x1F60A;</h4>
+        <button
+          className={`btn btn-primary ${showBookings ? "me-2" : ""}`}
+          onClick={handleBookingClick}
+        >
+          {showBookings ? "Hide My Bookings" : "Show My Bookings"}
+        </button>
         {showBookings && userId && <MyBookingsComponent userId={userId} />}
+
+        <CalenderComponent />
       </div>
-      <CalenderComponent />
       <Footer />
     </div>
   );
