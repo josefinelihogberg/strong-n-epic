@@ -66,7 +66,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           />
         </div>
         <div className="mb-3">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-dark btn-lg">
             Login
           </button>
         </div>

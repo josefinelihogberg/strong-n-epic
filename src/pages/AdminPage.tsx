@@ -35,10 +35,10 @@ const AdminPage = () => {
       <Header btnText={"Log Out"} />
 
       <div className="my-3">
-        <Link to="/admin/activity" className="btn btn-primary me-2">
+        <Link to="/admin/activity" className="btn btn-dark  me-2">
           Gym Activities
         </Link>
-        <Link to="/admin/user" className="btn btn-primary">
+        <Link to="/admin/user" className="btn btn-dark ">
           Members
         </Link>
       </div>

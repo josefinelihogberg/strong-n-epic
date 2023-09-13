@@ -110,7 +110,7 @@ const AddActivityComponent: React.FC<AddActivityProps> = ({ addActivity }) => {
         </div>
 
         <div className="mb-3">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-success">
             Save changes
           </button>
           <button type="reset" onClick={handleReset} className="btn btn-secondary ms-2">

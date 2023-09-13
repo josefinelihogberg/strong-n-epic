@@ -8,7 +8,7 @@ const CalenderComponent: React.FC = () => {
         display: "flex",
         justifyContent: "space-evenly",
         width: "68%",
-        margin: "0 auto",
+        margin: "3em auto",
         gap: "",
       }}
     >

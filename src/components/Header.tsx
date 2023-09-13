@@ -26,15 +26,14 @@ const Header: React.FC<NavProps> = ({ btnText }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-evenly",
-          marginTop: "1em",
         }}
       >
         <img alt="img" src={gym} style={{ width: "60px", height: "60px" }}></img>
-        <h1 style={{}}>Strong'n'Epic</h1>
+        <h1 className="display5">Strong'n'Epic</h1>
         <input
           placeholder="Search..."
-          className="rounded-pill px-2 border-1 border-gray"
-          style={{ height: "25px", width: "300px" }}
+          className="form-control me-2 "
+          style={{ height: "40px", width: "400px" }}
         ></input>
         <nav>
           <ul className="list-unstyled d-flex gap-3">

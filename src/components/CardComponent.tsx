@@ -14,6 +14,7 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({ activityId, title, time, description, coach, day }) => {
   const [user, setUser] = useState<User | null>(null);
   const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [isBooked, setIsBooked] = useState<boolean>(false);
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -21,23 +22,29 @@ const Card: React.FC<CardProps> = ({ activityId, title, time, description, coach
       // Fetch the complete user object based on the user ID
       fetch(`/api/user/${userId}`)
         .then((res) => res.json())
-        .then((json) => setUser(json.user))
+        .then((json) => {
+          setUser(json.user);
+
+          // Check if the user has already booked this activity
+          setIsBooked(json.user.activities.includes(activityId));
+        })
         .catch((err) => console.error(err));
     }
-  }, []);
+  }, [activityId]);
 
   const handleClick: React.MouseEventHandler = (e) => {
-    setShowPopup(true);
+    if (!isBooked) {
+      setShowPopup(true);
+    }
   };
 
   const handleOKClick = async () => {
     setShowPopup(false);
 
-    if (user !== null) {
+    if (!isBooked && user !== null) {
       await bookActivity(activityId);
+      setIsBooked(true);
     }
-
-    setShowPopup(false);
   };
 
   const handleCancelClick = () => {
@@ -69,8 +76,12 @@ const Card: React.FC<CardProps> = ({ activityId, title, time, description, coach
         <div className="card-body">
           <h6 className="card-title">{title}</h6>
           <p className="card-text">{time}</p>
-          <button className="btn btn-primary" onClick={handleClick}>
-            Book
+          <button
+            className={`btn ${isBooked ? "btn-secondary" : "btn-info"}`}
+            onClick={handleClick}
+            disabled={isBooked}
+          >
+            {isBooked ? "Booked" : "Book"}
           </button>
         </div>
       </div>

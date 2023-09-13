@@ -49,7 +49,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-dark btn-lg">
           Register
         </button>
       </form>
