@@ -15,7 +15,11 @@ const PopUpComponent: React.FC<PopUpProps> = ({ onOkClick, onCancelClick, insert
             <p>{insertText}</p>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={() => onCancelClick()}>
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => onCancelClick()}
+            >
               Cancel
             </button>
             <button type="button" className="btn btn-primary" onClick={() => onOkClick()}>

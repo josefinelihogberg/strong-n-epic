@@ -77,7 +77,7 @@ const Card: React.FC<CardProps> = ({ activityId, title, time, description, coach
           <h6 className="card-title">{title}</h6>
           <p className="card-text">{time}</p>
           <button
-            className={`btn ${isBooked ? "btn-secondary" : "btn-info"}`}
+            className={`btn ${isBooked ? "btn-secondary" : "btn-primary"}`}
             onClick={handleClick}
             disabled={isBooked}
           >

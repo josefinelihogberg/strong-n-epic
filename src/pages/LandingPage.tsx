@@ -39,14 +39,14 @@ const LandingPage = () => {
           <p>Join our gym chain and get fit!</p>
           <button
             style={{
-              cursor: "pointer", // Added double quotes
+              cursor: "pointer",
               border: "0",
               fontSize: "20px",
               borderRadius: "8px",
               fontWeight: "600",
-              margin: "0 10px", // Added double quotes
-              width: "250px", // Added double quotes
-              padding: "10px 0", // Added double quotes
+              margin: "0 10px",
+              width: "250px",
+              padding: "10px 0",
               boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
               color: "white",
               backgroundColor: "#0b090a",
