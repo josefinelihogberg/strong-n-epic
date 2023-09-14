@@ -17,10 +17,10 @@ const LandingPage = () => {
 
       <div
         style={{
-          backgroundImage: `url(${gymImage})`, // Use the imported image
+          backgroundImage: `url(${gymImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "100vh", // Adjust the height as needed
+          height: "100vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -28,16 +28,31 @@ const LandingPage = () => {
       >
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.8)", // White background with some transparency
-            padding: "40px 50px", // Adjust padding as needed
-            borderRadius: "8px", // Add rounded corners if desired
+            background: "rgba(255, 255, 255, 0.8)",
+            padding: "40px 50px",
+            borderRadius: "8px",
             textAlign: "center",
             marginTop: "-300px",
           }}
         >
           <h1 className="display-4">Welcome to Strong n' Epics</h1>
           <p>Join our gym chain and get fit!</p>
-          <button className="btn btn-dark btn-lg" onClick={handleClick}>
+          <button
+            style={{
+              cursor: "pointer", // Added double quotes
+              border: "0",
+              fontSize: "20px",
+              borderRadius: "8px",
+              fontWeight: "600",
+              margin: "0 10px", // Added double quotes
+              width: "250px", // Added double quotes
+              padding: "10px 0", // Added double quotes
+              boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
+              color: "white",
+              backgroundColor: "#0b090a",
+            }}
+            onClick={handleClick}
+          >
             To membership
           </button>
         </div>

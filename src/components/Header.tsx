@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import gym from "../assets/gym.png";
 
 type NavProps = {
-  btnText: String;
+  btnText: string; // Change 'String' to 'string' (lowercase)
 };
 
 const Header: React.FC<NavProps> = ({ btnText }) => {
@@ -13,10 +13,11 @@ const Header: React.FC<NavProps> = ({ btnText }) => {
     if (btnText === "Login") {
       navigate("/login");
     } else if (btnText === "Log Out") {
-      navigate("*");
+      navigate("/");
       localStorage.removeItem("username");
     }
   };
+
   return (
     <div>
       <header
@@ -28,13 +29,13 @@ const Header: React.FC<NavProps> = ({ btnText }) => {
           justifyContent: "space-evenly",
         }}
       >
-        <img alt="img" src={gym} style={{ width: "60px", height: "60px" }}></img>
+        <img alt="img" src={gym} style={{ width: "60px", height: "60px" }} />
         <h1 className="display5">Strong'n'Epic</h1>
         <input
           placeholder="Search..."
-          className="form-control me-2 "
+          className="form-control me-2"
           style={{ height: "40px", width: "400px" }}
-        ></input>
+        />
         <nav>
           <ul className="list-unstyled d-flex gap-3">
             <li>Home</li>
@@ -43,7 +44,25 @@ const Header: React.FC<NavProps> = ({ btnText }) => {
             <li>Contact</li>
           </ul>
         </nav>
-        <button className="btn btn-primary" onClick={handleClick}>
+        <button
+          style={{
+            margin: "10px",
+            width: "9em",
+            padding: "15px 30px",
+            textAlign: "center",
+            transition: "0.5s",
+            backgroundSize: "200% auto",
+            color: "white",
+            borderRadius: "10px",
+            display: "block",
+            border: "0px",
+            fontWeight: "700",
+            boxShadow: "0px 0px 14px -7px #f09819",
+            backgroundImage: "linear-gradient(45deg, #FF512F 0%, #F09819 51%, #FF512F 100%)",
+            cursor: "pointer",
+          }}
+          onClick={handleClick}
+        >
           {btnText}
         </button>
       </header>

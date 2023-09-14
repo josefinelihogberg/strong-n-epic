@@ -66,7 +66,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           />
         </div>
         <div className="mb-3">
-          <button type="submit" className="btn btn-dark btn-lg">
+          <button
+            style={{
+              cursor: "pointer", // Added double quotes
+              border: "0",
+              fontSize: "20px",
+              borderRadius: "8px",
+              fontWeight: "600",
+              margin: "0 10px", // Added double quotes
+              width: "10em", // Added double quotes
+              padding: "8px 0", // Added double quotes
+              boxShadow: "0 0 10px rgba(104, 85, 224, 0.2)",
+              color: "white",
+              backgroundColor: "#0b090a",
+              marginTop: "2em",
+            }}
+            type="submit"
+          >
             Login
           </button>
         </div>
