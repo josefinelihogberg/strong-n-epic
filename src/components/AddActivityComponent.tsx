@@ -48,9 +48,7 @@ const AddActivityComponent: React.FC<AddActivityProps> = ({ addActivity }) => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="coach" className="form-label">
-            Coach
-          </label>
+          <label className="form-label">Coach</label>
           <input
             type="text"
             className="form-control"

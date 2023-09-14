@@ -8,10 +8,7 @@ import PopUpComponent from "../components/abstracts/PopUpComponent";
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [showPopUp, setShowPopUp] = useState(false);
-
-  // Handle register logic here
   const handleRegister = async (username: string, password: string) => {
-    // Implement your register logic, e.g., make API requests
     try {
       const response = await fetch("/api/users", {
         method: "POST",
@@ -43,7 +40,7 @@ const RegisterPage: React.FC = () => {
         <PopUpComponent
           onOkClick={() =>
             setTimeout(() => {
-              navigate("/login"); // Navigate to the "/login" route
+              navigate("/login");
             }, 500)
           }
           onCancelClick={() => navigate("*")}

@@ -6,33 +6,38 @@ import { Activity } from "../types/Activity";
 
 const AdminActivityPage: React.FC = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [showPopUp, setShowPopUp] = useState(false); // State for POP UP visibility
-  const [activityToDelete, setActivityToDelete] = useState<number | null>(null); // State to store the ID of the activity to delete
+  const [showPopUp, setShowPopUp] = useState<boolean>(false);
+  const [activityToDelete, setActivityToDelete] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/activities")
+    fetch("/api/activities")
       .then((res) => res.json())
-      .then((json) => setActivities(json.activities))
-      .catch((err) => console.log(err));
+      .then((json) => {
+        setActivities(json.activities);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   }, []);
 
   const deleteActivity = async (id: number) => {
     try {
       await fetch(`/api/admin/activities/${id}`, { method: "DELETE" });
       setActivities(activities.filter((act) => act.id !== id));
-      setShowPopUp(false); // Close the  pop up after deletion
+      setShowPopUp(false);
     } catch (err) {
       console.log(err);
     }
   };
 
-  // Function to open the modal and set the activity to delete
   const openPopUp = (id: number) => {
     setActivityToDelete(id);
     setShowPopUp(true);
   };
 
-  // Function to close the POP UP
   const closePopUp = () => {
     setActivityToDelete(null);
     setShowPopUp(false);
@@ -41,6 +46,7 @@ const AdminActivityPage: React.FC = () => {
   return (
     <div>
       <Header btnText={"Log Out"} />
+
       <div className="container mt-4">
         {activities ? (
           <div>

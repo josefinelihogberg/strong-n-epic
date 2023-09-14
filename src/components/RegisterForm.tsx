@@ -1,19 +1,20 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 
-// Define the interface for the register form props
 interface RegisterFormProps {
   onRegister: (username: string, password: string) => void;
 }
+
+type InputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUsernameChange: InputChangeHandler = (e) => {
     setUsername(e.target.value);
   };
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange: InputChangeHandler = (e) => {
     setPassword(e.target.value);
   };
 
@@ -51,18 +52,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         </div>
         <button
           style={{
-            cursor: "pointer", // Added double quotes
+            cursor: "pointer",
             border: "0",
             fontSize: "20px",
             borderRadius: "8px",
             fontWeight: "600",
-            margin: "0 10px", // Added double quotes
-            width: "10em", // Added double quotes
-            padding: "8px 0", // Added double quotes
-            boxShadow: "0 0 10px rgba(104, 85, 224, 0.2)",
+            margin: "0 10px",
+            width: "10em",
+            padding: "6px 0",
             color: "white",
             backgroundColor: "#0b090a",
-            marginTop: "2em",
+            marginTop: "1.2em",
           }}
           type="submit"
         >

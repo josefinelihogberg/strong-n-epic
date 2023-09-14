@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CalenderComponent from "../components/CalenderComponent";
@@ -11,23 +10,18 @@ const UserBookingPage = () => {
   const [guestName, setGuestName] = useState("");
 
   useEffect(() => {
-    // Simulate fetching user data from local storage or wherever it's stored
     const userData = localStorage.getItem("userId");
     const guestData = localStorage.getItem("username");
-
     if (userData) {
       setUserId(JSON.parse(userData));
     }
-
     if (guestData) {
       setGuestName(guestData);
     }
   }, []);
-
   const handleBookingClick = () => {
     setShowBookings(!showBookings);
   };
-
   return (
     <div>
       <Header btnText={"Log Out"} />

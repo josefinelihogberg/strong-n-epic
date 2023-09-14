@@ -10,7 +10,7 @@ import PopUpComponent from "../components/abstracts/PopUpComponent";
 const AdminPage = () => {
   const navigate = useNavigate();
 
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
   const handleAddActivity = async (activity: Activity) => {
     try {
@@ -31,29 +31,30 @@ const AdminPage = () => {
     setShowPopUp(false);
   };
   return (
-    <div className="container">
+    <>
       <Header btnText={"Log Out"} />
+      <div className="container">
+        <div style={{ marginTop: "3em" }}>
+          <Link to="/admin/activity" className="btn btn-dark  me-2">
+            Gym Activities
+          </Link>
+          <Link to="/admin/user" className="btn btn-dark ">
+            Members
+          </Link>
+        </div>
 
-      <div className="my-3">
-        <Link to="/admin/activity" className="btn btn-dark  me-2">
-          Gym Activities
-        </Link>
-        <Link to="/admin/user" className="btn btn-dark ">
-          Members
-        </Link>
+        <AddActivityComponent addActivity={handleAddActivity} />
+        <Footer />
+
+        {showPopUp && (
+          <PopUpComponent
+            insertText={"You have successfully added an activity!"}
+            onOkClick={() => navigate("/admin/activity")}
+            onCancelClick={closePopUp}
+          />
+        )}
       </div>
-
-      <AddActivityComponent addActivity={handleAddActivity} />
-      <Footer />
-
-      {showPopUp && (
-        <PopUpComponent
-          insertText={"You have successfully added an activity!"}
-          onOkClick={() => navigate("/admin/activity")}
-          onCancelClick={closePopUp}
-        />
-      )}
-    </div>
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import React from "react";
 type PopUpProps = {
   onOkClick: () => void;
   onCancelClick: () => void;
-  insertText: string | JSX.Element;
+  insertText: React.ReactNode;
 };
 
 const PopUpComponent: React.FC<PopUpProps> = ({ onOkClick, onCancelClick, insertText }) => {

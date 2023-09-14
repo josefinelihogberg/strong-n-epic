@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -41,12 +40,12 @@ const LandingPage = () => {
             style={{
               cursor: "pointer",
               border: "0",
-              fontSize: "20px",
+              fontSize: "18px",
               borderRadius: "8px",
-              fontWeight: "600",
+              fontWeight: "500",
               margin: "0 10px",
-              width: "250px",
-              padding: "10px 0",
+              width: "220px",
+              padding: "8px 0",
               boxShadow: "0 0 20px rgba(104, 85, 224, 0.2)",
               color: "white",
               backgroundColor: "#0b090a",

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import gym from "../assets/gym.png";
 
 type NavProps = {
-  btnText: string; // Change 'String' to 'string' (lowercase)
+  btnText: string;
 };
 
 const Header: React.FC<NavProps> = ({ btnText }) => {
@@ -14,7 +14,12 @@ const Header: React.FC<NavProps> = ({ btnText }) => {
       navigate("/login");
     } else if (btnText === "Log Out") {
       navigate("/");
-      localStorage.removeItem("username");
+
+      try {
+        localStorage.removeItem("username");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -29,7 +34,7 @@ const Header: React.FC<NavProps> = ({ btnText }) => {
           justifyContent: "space-evenly",
         }}
       >
-        <img alt="img" src={gym} style={{ width: "60px", height: "60px" }} />
+        <img alt="img of the company logo" src={gym} style={{ width: "60px", height: "60px" }} />
         <h1 className="display5">Strong'n'Epic</h1>
         <input
           placeholder="Search..."
@@ -47,10 +52,9 @@ const Header: React.FC<NavProps> = ({ btnText }) => {
         <button
           style={{
             margin: "10px",
-            width: "9em",
-            padding: "15px 30px",
+            width: "7em",
+            padding: "10px 10px",
             textAlign: "center",
-            transition: "0.5s",
             backgroundSize: "200% auto",
             color: "white",
             borderRadius: "10px",

@@ -3,7 +3,7 @@ import { Activity } from "../types/Activity";
 import PopUpComponent from "../components/abstracts/PopUpComponent";
 
 interface MyBookingsProps {
-  userId: number; // Receive the user's ID as a prop
+  userId: number;
 }
 
 const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
@@ -12,9 +12,8 @@ const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
   const [activityIdToDelete, setActivityIdToDelete] = useState<number | null>(null);
 
   useEffect(() => {
-    // Fetch user bookings based on the provided userId
     fetch(`/api/user/${userId}/bookings`)
-      .then((res) => res.json())
+      .then((res) => res.json() as Promise<{ activities: Activity[] }>)
       .then((json) => {
         setActivities(json.activities);
       })
@@ -31,7 +30,8 @@ const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
     setShowPopUp(false);
   };
 
-  const deleteBooking = async (activityIdToDelete: number) => {
+  const deleteBooking = async (activityIdToDelete: number | null) => {
+    if (activityIdToDelete === null) return;
     try {
       await fetch(`/api/user/${userId}/bookings/${activityIdToDelete}`, { method: "DELETE" });
       setActivities((prevActivities) =>
@@ -44,8 +44,8 @@ const MyBookingsComponent: React.FC<MyBookingsProps> = ({ userId }) => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">My Bookings</h2>
+    <div className="container mt-4">
+      <h2 className="mb-3">My Bookings</h2>
       {activities.length === 0 ? (
         <p>No bookings yet.</p>
       ) : (

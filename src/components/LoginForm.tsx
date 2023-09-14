@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
-// Define the interface for the login form props
 interface LoginFormProps {
   onLogin: (username: string, password: string) => void;
 }
@@ -9,6 +8,9 @@ interface FormState {
   username: string;
   password: string;
 }
+
+type InputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [formState, setFormState] = useState<FormState>({
     username: "",
@@ -17,14 +19,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const { username, password } = formState;
 
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUsernameChange: InputChangeHandler = (e) => {
     setFormState((prevState) => ({
       ...prevState,
       username: e.target.value,
     }));
   };
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange: InputChangeHandler = (e) => {
     setFormState((prevState) => ({
       ...prevState,
       password: e.target.value,
@@ -41,9 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       <h2 className="mt-5">Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username:
-          </label>
+          <label className="form-label">Username:</label>
           <input
             type="text"
             className="form-control"
@@ -68,18 +68,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         <div className="mb-3">
           <button
             style={{
-              cursor: "pointer", // Added double quotes
+              cursor: "pointer",
               border: "0",
               fontSize: "20px",
               borderRadius: "8px",
               fontWeight: "600",
-              margin: "0 10px", // Added double quotes
-              width: "10em", // Added double quotes
-              padding: "8px 0", // Added double quotes
-              boxShadow: "0 0 10px rgba(104, 85, 224, 0.2)",
+              margin: "0 10px",
+              width: "10em",
+              padding: "6px 0",
               color: "white",
               backgroundColor: "#0b090a",
-              marginTop: "2em",
+              marginTop: "1.2em",
             }}
             type="submit"
           >

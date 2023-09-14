@@ -7,11 +7,16 @@ import { useNavigate } from "react-router-dom";
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
-  // Handle login logic here
+  const handleSuccessfulLogin = (role: string) => {
+    if (role === "ADMIN") {
+      navigate("/admin");
+    } else if (role === "USER") {
+      navigate("/userbooking");
+    }
+  };
+
   const handleLogin = async (username: string, password: string) => {
-    // Implement your login logic, e.g., make API requests
     try {
-      // Make a POST request to the authentication endpoint
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -22,25 +27,20 @@ const LoginPage: React.FC = () => {
 
       if (response.status === 201) {
         const data = await response.json();
-
         const user = data.user;
 
-        const id = user.id;
-        const username = user.username;
-        const role = user.role;
-        // Store username in localStorage
-        localStorage.setItem("username", username);
-        localStorage.setItem("userId", id);
+        if (user && user.id) {
+          const id = user.id;
+          const username = user.username;
 
-        // Navigate based on the user's role
-        if (role === "ADMIN") {
-          navigate("/admin");
-        } else if (role === "USER") {
-          navigate("/userbooking");
+          localStorage.setItem("username", username);
+          localStorage.setItem("userId", id);
+          handleSuccessfulLogin(user.role);
+        } else {
+          console.log("Login failed: Invalid user data");
         }
       } else {
-        // Handle login error, e.g., display an error message
-        console.log("Login failed");
+        console.log("Login failed: Response status is not 201");
       }
     } catch (error) {
       console.error("Login error:", error);

@@ -17,16 +17,15 @@ const Card: React.FC<CardProps> = ({ activityId, title, time, description, coach
   const [isBooked, setIsBooked] = useState<boolean>(false);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem("userId") as number | null;
     if (userId) {
-      // Fetch the complete user object based on the user ID
       fetch(`/api/user/${userId}`)
         .then((res) => res.json())
         .then((json) => {
           setUser(json.user);
-
-          // Check if the user has already booked this activity
-          setIsBooked(json.user.activities.includes(activityId));
+          if (user) {
+            setIsBooked(json.user.activities.includes(activityId) || false);
+          }
         })
         .catch((err) => console.error(err));
     }
@@ -54,13 +53,12 @@ const Card: React.FC<CardProps> = ({ activityId, title, time, description, coach
   const bookActivity = async (activityId: number) => {
     try {
       if (user) {
-        // Send the activityId to the server for booking
         const response = await fetch(`/api/user/${user.id}/bookings`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ activityId }), // Send the activityId in the request body
+          body: JSON.stringify({ activityId }),
         });
 
         setShowPopup(false);
